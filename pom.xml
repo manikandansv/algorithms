@@ -8,5 +8,6 @@
   <modules>
   	<module>sorting</module>
   	<module>searching</module>
+  	<module>string</module>
   </modules>
 </project>
