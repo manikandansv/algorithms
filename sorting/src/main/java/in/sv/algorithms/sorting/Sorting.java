@@ -153,18 +153,18 @@ public class Sorting {
 		buildHeap(arr, inputLen);
 
 		heapify(arr);
-		
-		for (int i = 0; i < inputLen; i++){
-			
-			inputArr[i] = arr[i+1];
-			
+
+		for (int i = 0; i < inputLen; i++) {
+
+			inputArr[i] = arr[i + 1];
+
 		}
 
 		return inputArr;
 	}
 
 	private static void heapify(int[] arr) {
-	
+
 		while (arr[0] > 0) {
 
 			int temp = arr[1];
@@ -172,9 +172,9 @@ public class Sorting {
 			arr[1] = arr[arr[0]];
 
 			arr[arr[0]] = temp;
-			
+
 			buildHeap(arr, arr[0]);
-			
+
 			arr[0]--;
 
 		}
@@ -182,7 +182,7 @@ public class Sorting {
 	}
 
 	private static void buildHeap(int[] inputArr, int n) {
-		
+
 		for (int i = 1; i < n; i++) {
 
 			int index = i;
@@ -205,12 +205,131 @@ public class Sorting {
 
 	public static int[] quickSort(int[] inputArr) {
 
+		int len = inputArr.length;
+		
+		quickSort(inputArr, 0, len-1);
+
 		return inputArr;
+	}
+
+	public static void quickSort(int[] inputArr, int startIndex, int endIndex) {
+
+		if (startIndex < endIndex) {
+
+			int pivotIndex = partition(inputArr, startIndex, endIndex);
+
+			quickSort(inputArr, startIndex, pivotIndex - 1);
+
+			quickSort(inputArr, pivotIndex + 1, endIndex);
+
+		}
+
+	}
+
+	private static int partition(int[] inputArr, int startIndex, int endIndex) {
+		
+		int pivot = inputArr[endIndex];
+		
+		int i = startIndex;
+		
+		for (int j = startIndex; j < endIndex; j++){
+			
+			if (inputArr[j] <= pivot){
+				
+				int temp = inputArr[i];
+				
+				inputArr[i] = inputArr[j];
+				
+				inputArr[j] = temp;
+				
+				i++;
+				
+			}
+		}
+		
+		int temp1 = inputArr[i];
+		
+		inputArr[i] = inputArr[endIndex];
+		
+		inputArr[endIndex] = temp1;
+		
+		return i;
+
 	}
 
 	public static int[] mergeSort(int[] inputArr) {
 
+		int len = inputArr.length;
+
+		if (len == 1) {
+
+			return inputArr;
+
+		} else {
+
+			mergeSort(0, len - 1, inputArr);
+
+		}
+
 		return inputArr;
+	}
+
+	private static void mergeSort(int i, int j, int[] arr) {
+
+		if (i < j) {
+
+			int middle = i + (j - i) / 2;
+
+			mergeSort(i, middle, arr);
+
+			mergeSort(middle + 1, j, arr);
+
+			mergeParts(i, middle, j, arr);
+
+		}
+
+	}
+
+	private static void mergeParts(int lowerIndex, int middle, int higherIndex, int[] inputArr) {
+
+		int[] tempMergArr = new int[inputArr.length];
+
+		for (int i = lowerIndex; i <= higherIndex; i++) {
+			tempMergArr[i] = inputArr[i];
+		}
+
+		int i = lowerIndex;
+		int j = middle + 1;
+		int k = lowerIndex;
+
+		while (i <= middle && j <= higherIndex) {
+
+			if (tempMergArr[i] < tempMergArr[j]) {
+
+				inputArr[k] = tempMergArr[i];
+
+				i++;
+
+			} else {
+
+				inputArr[k] = tempMergArr[j];
+
+				j++;
+
+			}
+
+			k++;
+
+		}
+
+		while (i <= middle) {
+			inputArr[k] = tempMergArr[i];
+
+			k++;
+
+			i++;
+		}
+
 	}
 
 	public static int[] radixSort(int[] inputArr) {
@@ -226,7 +345,9 @@ public class Sorting {
 		// int[] outputArr = Sorting.selectionSort(inputArr);
 		// int[] outputArr = Sorting.insertionSort(inputArr);
 		// int[] outputArr = Sorting.shellSort(inputArr);
-		int[] outputArr = Sorting.heapSort(inputArr);
+		// int[] outputArr = Sorting.heapSort(inputArr);
+		// int[] outputArr = Sorting.mergeSort(inputArr);
+		int[] outputArr = Sorting.quickSort(inputArr);
 
 		printArr(outputArr, 0);
 
