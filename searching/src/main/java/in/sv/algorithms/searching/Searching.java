@@ -10,11 +10,14 @@ public class Searching {
 
 		// int result = Searching.sortedLinearSearch(inputArr, 75);
 
-		int result = Searching.binarySearchRecursive(inputArr, 68);
+		//int result = Searching.binarySearchRecursive(inputArr, 68);
 
-		System.out.println(result);
+		//System.out.println(result);
+		
+		
 
 	}
+
 
 	public static int unsortedLinearSearch(int[] a, int searchData) {
 
@@ -84,5 +87,9 @@ public class Searching {
 		}
 
 	}
+	
+	
 
+	
+	
 }
